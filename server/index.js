@@ -21,21 +21,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, distDir, 'index.html'));
 });
 
-app.get('/listTravel', (req, res) => {
-    res.send(Liste);
-});
-
 app.get('/formulaire', (req, res) => {
     console.log('la');
     res.sendFile(path.join(__dirname, distDir, 'travelForm.html'));
-});
-
-app.get('/liste/:id', (req, res) => {
-    let myId = req.params.id;
-
-    const itemFind = Liste.filter((item) => item.id == myId);
-
-    if (itemFind) res.send(itemFind);
 });
 
 app.post('/addTravel', (req, res) => {
