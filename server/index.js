@@ -26,6 +26,10 @@ app.get('/formulaire', (req, res) => {
     res.sendFile(path.join(__dirname, distDir, 'travelForm.html'));
 });
 
+app.get('/listTravel', (req, res) => {
+    res.send(Liste);
+});
+
 app.post('/addTravel', (req, res) => {
     res.send('Ajouter');
 });
