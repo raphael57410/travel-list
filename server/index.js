@@ -39,6 +39,5 @@ app.get('/liste/:id', (req, res) => {
 });
 
 app.post('/addTravel', (req, res) => {
-    console.log(req.body);
     res.send('Ajouter');
 });
