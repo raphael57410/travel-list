@@ -38,6 +38,7 @@ app.get('/liste/:id', (req, res) => {
     if (itemFind) res.send(itemFind);
 });
 
-app.post('/liste', (req, res) => {
-
+app.post('/addTravel', (req, res) => {
+    console.log(req.body);
+    res.send('Ajouter');
 });
