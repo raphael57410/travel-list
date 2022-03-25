@@ -32,12 +32,20 @@ export class ListTravel {
                     const imgElement = document.createElement('img');
                     const liElement = document.createElement('li');
                     const pElement = document.createElement('p');
+                    const editButtonElement = document.createElement('button');
+                    const deleteButtonElement = document.createElement('button');
 
                     liElement.innerText = element.name;
                     imgElement.src = element.img;
                     pElement.innerText = element.description;
+                    editButtonElement.innerText = "editer";
+                    deleteButtonElement.innerText = "Supprimer";
+
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
+                    liElement.appendChild(editButtonElement);
+                    liElement.appendChild(deleteButtonElement);
+
                     ulElement.appendChild(liElement);
                 });
 
