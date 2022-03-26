@@ -1,13 +1,34 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const PORT = 3000;
 const Liste = require('./data/travelList');
-
 const app = express();
+const recordRoutes = express.Router();
+
+//----------------------------------//
+//----------DB CONNECTION ----------//
+//----------------------------------//
+const mongoose = require('mongoose');
+const url = process.env.ATLAS_URL;
+const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}
+
+mongoose.connect(url, connectionParams)
+    .then(() => {
+        console.log('Connected to database ')
+    })
+    .catch((err) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    })
 
 app.listen(PORT, () => {
     console.log(`Server launch on port : ${PORT}`);
 });
+//----------------------------------//
+//----------------------------------//
 
 // Config express
 const distDir = '../src/';
@@ -35,10 +56,32 @@ app.get('/formulaire/:id', (req, res) => {
     res.send(itemFound);
 });
 
-app.get('/listTravel', (req, res) => {
-    res.send(Liste);
+recordRoutes.route("/listTravel").get((req, res) => {
+    const dbConnect = dbo.getDb();
+
+    dbConnect
+        .collection("listingsAndReviews")
+        .find({}).limit(50)
+        .toArray(function (err, result) {
+            if (err) {
+                res.status(400).send("Error fetching listings!");
+            } else {
+                res.json(result);
+            }
+        });
 });
 
 app.post('/addTravel', (req, res) => {
     res.send('Ajouter');
+});
+
+app.patch('/updateTravel', (req, res) => {
+
+    const findListe = Liste.find((elt) => req.body.id === elt.id);
+
+    findListe.name = req.body.destination;
+    findListe.img = req.body.image;
+    findListe.description = req.body.description;
+
+    res.send(findListe);
 });

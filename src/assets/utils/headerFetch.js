@@ -1,7 +1,7 @@
 // Fontion qui retourne les options 
 export const headerFetch = (protocol, body) => {
     const myHeaders = new Headers();
-    if (protocol === 'POST') {
+    if (protocol === 'POST' || protocol === 'PATCH') {
         const options = {
             method: protocol,
             headers: {

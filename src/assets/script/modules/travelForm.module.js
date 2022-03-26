@@ -6,6 +6,7 @@ const UPDATE_URL = '/updateTravel';
 
 export class TravelForm {
     _form = document.querySelector('.form');
+    _id;
     _destinationInput = document.querySelector('.destinationInput');
     _imageInput = document.querySelector('.imageInput');
     _descriptionInput = document.querySelector('.descriptionInput');
@@ -17,6 +18,7 @@ export class TravelForm {
 
         if (item) {
             console.log(item.name, item.img, item.description);
+            this._id = item.id;
             this._destinationInput.value = item.name;
             this._imageInput.value = item.img;
             this._descriptionInput.value = item.description;
@@ -25,13 +27,17 @@ export class TravelForm {
         this._form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            this.sendNewTravel(this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);
+            if (item) {
+                this.updateTravel(this._id, this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);
+            } else {
+                this.sendNewTravel(this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);
+            }
+
 
         })
     }
 
     sendNewTravel(destination, image, description) {
-
         const body = {
             destination,
             image,
@@ -56,7 +62,26 @@ export class TravelForm {
 
     }
 
-    updateTravel() {
-        fetch(UPDATE_URL,)
+    updateTravel(id, destination, image, description) {
+        const body = {
+            id,
+            destination,
+            image,
+            description,
+        };
+
+        const options = headerFetch('PATCH', body);
+
+        fetch(UPDATE_URL, options).then((res) => {
+
+            if (res.ok) return res.json();
+            return Promise.reject(res);
+
+        }).then((response) => {
+            console.log(response);
+            localStorage.removeItem('TRAVEL');
+        }).catch((error) => {
+            console.log('Error fetch update', error);
+        });
     }
 }
