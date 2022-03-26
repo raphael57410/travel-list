@@ -76,3 +76,10 @@ app.patch('/updateTravel', (req, res) => {
         res.send(doc);
     });
 });
+
+// delete travel
+app.delete('/listTravel/:id', (req, res) => {
+    const id = req.params.id;
+    TravelModel.findByIdAndRemove(id).exec();
+    res.send('Supprimé !');
+});

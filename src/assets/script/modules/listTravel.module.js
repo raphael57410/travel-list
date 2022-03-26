@@ -1,6 +1,6 @@
 import { headerFetch } from "../../utils/headerFetch.js";
 
-const URL = '/listTravel';
+const URL = '/listTravel/';
 const URLFORM = '/formulaire/';
 export class ListTravel {
     _container = document.querySelector('#root');
@@ -50,6 +50,7 @@ export class ListTravel {
                     deleteButtonElement.classList.add('delete_button');
                     deleteButtonElement.innerText = "Supprimer";
                     deleteButtonElement.id = element._id;
+                    this.deletetravel(deleteButtonElement);
 
 
                     liElement.appendChild(imgElement);
@@ -65,6 +66,7 @@ export class ListTravel {
             });
     }
 
+    // Edit Travel
     editTravel(editButton) {
         editButton.addEventListener('click', (event) => {
             fetch(URLFORM + event.target.id, headerFetch('GET'))
@@ -81,6 +83,22 @@ export class ListTravel {
                 }).catch((error) => {
                     console.log('Error fetch /listTravel/:id', error);
                 });
+        });
+    }
+
+    // Delete Travel
+    deletetravel(deleteButton) {
+        deleteButton.addEventListener('click', (event) => {
+            fetch(URL + event.target.id, headerFetch('DELETE'))
+                .then((res) => {
+                    if (res.ok) return res.json();
+                    return Promise.reject(res);
+                }).then((response) => {
+                    console.log(response);
+                    location.href = '/liste';
+                }).catch((error) => {
+                    console.log('Error fetch /delete', error);
+                })
         });
     }
 }

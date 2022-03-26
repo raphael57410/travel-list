@@ -15,7 +15,7 @@ export const headerFetch = (protocol, body) => {
         return options;
     };
 
-    if (protocol === 'GET') {
+    if (protocol === 'GET' || protocol === 'DELETE') {
         const options = {
             method: protocol,
             headers: myHeaders,

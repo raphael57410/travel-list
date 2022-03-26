@@ -52,6 +52,7 @@ export class TravelForm {
             })
             .then((response) => {
                 console.log(response);
+                location.href = '/liste';
             })
             .catch((error) => {
                 console.log('Error fetch /addTravel', error);
