@@ -21,9 +21,18 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, distDir, 'index.html'));
 });
 
+app.get('/liste', (req, res) => {
+    res.sendFile(path.join(__dirname, distDir, 'pages/', 'listTravel.html'));
+});
+
 app.get('/formulaire', (req, res) => {
-    console.log('la');
-    res.sendFile(path.join(__dirname, distDir, 'travelForm.html'));
+    res.sendFile(path.join(__dirname, distDir, 'pages/', 'travelForm.html'));
+});
+
+app.get('/formulaire/:id', (req, res) => {
+    const paramsId = req.params.id;
+    const itemFound = Liste.filter(elt => elt.id == paramsId);
+    res.send(itemFound);
 });
 
 app.get('/listTravel', (req, res) => {

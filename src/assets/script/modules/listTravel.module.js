@@ -1,8 +1,11 @@
 import { headerFetch } from "../../utils/headerFetch.js";
+import { TravelForm } from './travelForm.module.js';
 
-const URL = '/listTravel'
+const URL = '/listTravel/';
+const URLFORM = '/formulaire/';
 export class ListTravel {
-    _container = document.querySelector('#root');;
+    _container = document.querySelector('#root');
+
     constructor() {
         const titleContainer = document.createElement('h1');
         titleContainer.innerHTML = 'Liste des Voyages';
@@ -19,6 +22,7 @@ export class ListTravel {
         this._target = value;
     }
 
+    // Fetch all travel list
     fetchTravelList() {
         fetch(URL, headerFetch('GET'))
             .then((res) => {
@@ -38,8 +42,16 @@ export class ListTravel {
                     liElement.innerText = element.name;
                     imgElement.src = element.img;
                     pElement.innerText = element.description;
+
+                    editButtonElement.classList.add('edit_button');
                     editButtonElement.innerText = "editer";
+                    editButtonElement.id = element.id;
+                    this.editTravel(editButtonElement);
+
+                    deleteButtonElement.classList.add('delete_button');
                     deleteButtonElement.innerText = "Supprimer";
+                    deleteButtonElement.id = element.id;
+
 
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
@@ -48,10 +60,28 @@ export class ListTravel {
 
                     ulElement.appendChild(liElement);
                 });
-
                 this._container.appendChild(ulElement);
             }).catch((error) => {
                 console.log('Error fetch /listTravel', error);
             });
+    }
+
+    editTravel(editButton) {
+        editButton.addEventListener('click', (event) => {
+            fetch(URLFORM + event.target.id, headerFetch('GET'))
+                .then((res) => {
+
+                    if (res.ok) return res.json();
+                    return Promise.reject(res);
+
+                }).then((response) => {
+
+                    localStorage.setItem('TRAVEL', JSON.stringify(response));
+                    location.href = '/formulaire';
+
+                }).catch((error) => {
+                    console.log('Error fetch /listTravel/:id', error);
+                });
+        });
     }
 }

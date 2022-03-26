@@ -1,7 +1,8 @@
 import { headerFetch } from "../../utils/headerFetch.js";
 
 
-const URL = '/addTravel';
+const ADD_URL = '/addTravel';
+const UPDATE_URL = '/updateTravel';
 
 export class TravelForm {
     _form = document.querySelector('.form');
@@ -11,9 +12,21 @@ export class TravelForm {
 
     constructor() {
 
+        const itemParse = JSON.parse(localStorage.getItem('TRAVEL'));
+        const item = itemParse[0];
+
+        if (item) {
+            console.log(item.name, item.img, item.description);
+            this._destinationInput.value = item.name;
+            this._imageInput.value = item.img;
+            this._descriptionInput.value = item.description;
+        }
+
         this._form.addEventListener('submit', (event) => {
             event.preventDefault();
+
             this.sendNewTravel(this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);
+
         })
     }
 
@@ -27,7 +40,7 @@ export class TravelForm {
 
         const options = headerFetch('POST', body);
 
-        fetch(URL, options)
+        fetch(ADD_URL, options)
             .then((res) => {
 
                 if (res.ok) return res;
@@ -41,5 +54,9 @@ export class TravelForm {
                 console.log('Error fetch /addTravel', error);
             });
 
+    }
+
+    updateTravel() {
+        fetch(UPDATE_URL,)
     }
 }
