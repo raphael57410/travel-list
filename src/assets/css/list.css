@@ -1,8 +1,11 @@
 @import './root.css';
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'DM Sans Courier New', Courier, monospace;
+
 }
 
 #root{
@@ -10,6 +13,26 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+a{
+    text-decoration: none;
+    padding: 5px;
+    text-align: center;
+    border: solid 2px var(--primary-color);
+}
+
+a:hover{
+    transform: scale(1.1);
+}
+
+.link_container{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    width: 50%;
 }
 
 h1 {
@@ -28,19 +51,28 @@ ul {
     row-gap: 15px;
     justify-items: center;
     border-radius: 10px;
-    box-shadow: var(--box-shadow);
+    padding: 0;
 }
 
 li {
     display: flex;
     flex-direction: column;
     text-align: center;
+    font-weight: bold;
     margin: 5px;
+    padding: 10px;
     list-style: none;
+    animation: cardPop 0.4s ease-in;
+    box-shadow: var(--box-shadow);
+}
+
+p {
+    text-align: start;
 }
 
 img {
-    width: 100px;
+    width: 100%;
+    border-radius: 10px;
     margin: 5px;
 }
 
@@ -49,3 +81,66 @@ footer {
     height: 100px;
     background-color: var(--primary-color);
 }
+
+.edit_button{
+    margin: 5px;
+    font-weight: bold;
+    background: none;
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+}
+
+.edit_button:hover{
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.delete_button{
+    margin: 5px;
+    background: none;
+    font-weight: bold;
+    color: red;
+    border-radius: 10px;
+    border: 1px solid red;  
+}
+
+.delete_button:hover{
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+}
+
+@keyframes cardPop {
+    0%   {transform: scale(0);}
+    100% {transform: scale(1);}
+  }
+
+  @media screen and (max-width: 800px) {
+    a {
+        background: red;
+        font-size: 10px;
+        margin: 5px;
+    }
+
+    h1 {
+        font-size: 15px;
+    }
+
+    .link_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    ul {
+        grid-template-columns: 1fr;
+    }
+  }

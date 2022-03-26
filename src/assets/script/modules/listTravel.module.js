@@ -30,6 +30,8 @@ export class ListTravel {
             }).then((response) => {
 
                 const ulElement = document.createElement('ul');
+                const footerElement = document.createElement('footer');
+                footerElement.innerText = 'Made by Raphael 😍';
 
                 response.forEach(element => {
                     const imgElement = document.createElement('img');
@@ -52,7 +54,6 @@ export class ListTravel {
                     deleteButtonElement.id = element._id;
                     this.deletetravel(deleteButtonElement);
 
-
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
                     liElement.appendChild(editButtonElement);
@@ -61,6 +62,7 @@ export class ListTravel {
                     ulElement.appendChild(liElement);
                 });
                 this._container.appendChild(ulElement);
+                this._container.appendChild(footerElement);
             }).catch((error) => {
                 console.log('Error fetch /listTravel', error);
             });
