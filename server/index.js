@@ -1,34 +1,15 @@
 require('dotenv').config();
 const express = require('express');
+require('./db/db.js');
 const path = require('path');
 const PORT = 3000;
-const Liste = require('./data/travelList');
 const app = express();
-const recordRoutes = express.Router();
+const TravelModel = require('./models/travelModel');
 
-//----------------------------------//
-//----------DB CONNECTION ----------//
-//----------------------------------//
-const mongoose = require('mongoose');
-const url = process.env.ATLAS_URL;
-const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
-
-mongoose.connect(url, connectionParams)
-    .then(() => {
-        console.log('Connected to database ')
-    })
-    .catch((err) => {
-        console.error(`Error connecting to the database. \n${err}`);
-    })
 
 app.listen(PORT, () => {
     console.log(`Server launch on port : ${PORT}`);
 });
-//----------------------------------//
-//----------------------------------//
 
 // Config express
 const distDir = '../src/';
@@ -37,7 +18,7 @@ app.use('/assets', express.static(path.join(__dirname, distDir, '/assets')));
 app.use(express.json());
 
 
-// Routes
+// Template Router
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, distDir, 'index.html'));
 });
@@ -50,38 +31,48 @@ app.get('/formulaire', (req, res) => {
     res.sendFile(path.join(__dirname, distDir, 'pages/', 'travelForm.html'));
 });
 
+// Data router
 app.get('/formulaire/:id', (req, res) => {
     const paramsId = req.params.id;
-    const itemFound = Liste.filter(elt => elt.id == paramsId);
-    res.send(itemFound);
+
+    TravelModel.findById(paramsId, (err, doc) => {
+        res.send(doc);
+    });
 });
 
-recordRoutes.route("/listTravel").get((req, res) => {
-    const dbConnect = dbo.getDb();
-
-    dbConnect
-        .collection("listingsAndReviews")
-        .find({}).limit(50)
-        .toArray(function (err, result) {
-            if (err) {
-                res.status(400).send("Error fetching listings!");
-            } else {
-                res.json(result);
-            }
-        });
+// all travel
+app.get('/listTravel', (req, res) => {
+    TravelModel.find({})
+        .then((doc) => {
+            res.send(doc);
+        })
 });
 
-app.post('/addTravel', (req, res) => {
-    res.send('Ajouter');
+// add travel
+app.post('/addTravel', async (req, res) => {
+    const { destination, image, description } = req.body;
+    let newTravel = {};
+    newTravel.name = destination;
+    newTravel.img = image;
+    newTravel.description = description;
+
+    let travelModel = new TravelModel(newTravel);
+
+    await travelModel.save();
+
+    res.json(travelModel);
+
 });
 
+// update travel
 app.patch('/updateTravel', (req, res) => {
 
-    const findListe = Liste.find((elt) => req.body.id === elt.id);
+    TravelModel.findById(req.body.id, (err, doc) => {
 
-    findListe.name = req.body.destination;
-    findListe.img = req.body.image;
-    findListe.description = req.body.description;
-
-    res.send(findListe);
+        doc.name = req.body.destination;
+        doc.img = req.body.image;
+        doc.description = req.body.description;
+        doc.save();
+        res.send(doc);
+    });
 });

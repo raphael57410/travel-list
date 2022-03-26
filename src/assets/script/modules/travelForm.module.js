@@ -14,20 +14,17 @@ export class TravelForm {
     constructor() {
 
         const itemParse = JSON.parse(localStorage.getItem('TRAVEL'));
-        const item = itemParse[0];
-
-        if (item) {
-            console.log(item.name, item.img, item.description);
-            this._id = item.id;
-            this._destinationInput.value = item.name;
-            this._imageInput.value = item.img;
-            this._descriptionInput.value = item.description;
+        if (itemParse) {
+            this._id = itemParse._id;
+            this._destinationInput.value = itemParse.name;
+            this._imageInput.value = itemParse.img;
+            this._descriptionInput.value = itemParse.description;
         }
 
         this._form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            if (item) {
+            if (itemParse) {
                 this.updateTravel(this._id, this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);
             } else {
                 this.sendNewTravel(this._destinationInput.value, this._imageInput.value, this._descriptionInput.value);

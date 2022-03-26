@@ -1,7 +1,6 @@
 import { headerFetch } from "../../utils/headerFetch.js";
-import { TravelForm } from './travelForm.module.js';
 
-const URL = '/listTravel/';
+const URL = '/listTravel';
 const URLFORM = '/formulaire/';
 export class ListTravel {
     _container = document.querySelector('#root');
@@ -45,12 +44,12 @@ export class ListTravel {
 
                     editButtonElement.classList.add('edit_button');
                     editButtonElement.innerText = "editer";
-                    editButtonElement.id = element.id;
+                    editButtonElement.id = element._id;
                     this.editTravel(editButtonElement);
 
                     deleteButtonElement.classList.add('delete_button');
                     deleteButtonElement.innerText = "Supprimer";
-                    deleteButtonElement.id = element.id;
+                    deleteButtonElement.id = element._id;
 
 
                     liElement.appendChild(imgElement);
