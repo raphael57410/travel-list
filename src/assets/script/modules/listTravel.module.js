@@ -1,4 +1,5 @@
 import { headerFetch } from "../../utils/headerFetch.js";
+import { Button } from "./button.module.js";
 
 const URL = '/listTravel/';
 const URLFORM = '/formulaire/';
@@ -37,17 +38,17 @@ export class ListTravel {
                     const imgElement = document.createElement('img');
                     const liElement = document.createElement('li');
                     const pElement = document.createElement('p');
-                    const editButtonElement = document.createElement('button');
+                    const editButtonElement = new Button("editer", 'edit_button', element._id);
                     const deleteButtonElement = document.createElement('button');
 
                     liElement.innerText = element.name;
                     imgElement.src = element.img;
                     pElement.innerText = element.description;
 
-                    editButtonElement.classList.add('edit_button');
-                    editButtonElement.innerText = "editer";
-                    editButtonElement.id = element._id;
-                    this.editTravel(editButtonElement);
+                    editButtonElement.button.classList.add('edit_button');
+                    editButtonElement.button.innerText = "editer";
+                    editButtonElement.button.id = element._id;
+                    this.editTravel(editButtonElement.button);
 
                     deleteButtonElement.classList.add('delete_button');
                     deleteButtonElement.innerText = "Supprimer";
@@ -56,7 +57,7 @@ export class ListTravel {
 
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
-                    liElement.appendChild(editButtonElement);
+                    liElement.appendChild(editButtonElement.button);
                     liElement.appendChild(deleteButtonElement);
 
                     ulElement.appendChild(liElement);
