@@ -39,26 +39,20 @@ export class ListTravel {
                     const liElement = document.createElement('li');
                     const pElement = document.createElement('p');
                     const editButtonElement = new Button("editer", 'edit_button', element._id);
-                    const deleteButtonElement = document.createElement('button');
+                    const deleteButtonElement = new Button("Supprimer", 'delete_button', element._id);
 
                     liElement.innerText = element.name;
                     imgElement.src = element.img;
                     pElement.innerText = element.description;
 
-                    editButtonElement.button.classList.add('edit_button');
-                    editButtonElement.button.innerText = "editer";
-                    editButtonElement.button.id = element._id;
                     this.editTravel(editButtonElement.button);
 
-                    deleteButtonElement.classList.add('delete_button');
-                    deleteButtonElement.innerText = "Supprimer";
-                    deleteButtonElement.id = element._id;
-                    this.deletetravel(deleteButtonElement);
+                    this.deletetravel(deleteButtonElement.button);
 
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
                     liElement.appendChild(editButtonElement.button);
-                    liElement.appendChild(deleteButtonElement);
+                    liElement.appendChild(deleteButtonElement.button);
 
                     ulElement.appendChild(liElement);
                 });
