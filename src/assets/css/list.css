@@ -3,6 +3,7 @@
 
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'DM Sans Courier New', Courier, monospace;
 
@@ -26,6 +27,8 @@ a{
 
 a:hover{
     transform: scale(1.1);
+    color: white;
+    background: var(--primary-color);
 }
 
 .link_container{
@@ -40,7 +43,6 @@ h1 {
     background-color: var(--primary-color);
     text-align: center;
     width: 100%;
-    margin: 10px;
 }
 
 ul {

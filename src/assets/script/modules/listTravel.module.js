@@ -88,7 +88,7 @@ export class ListTravel {
         deleteButton.addEventListener('click', (event) => {
             fetch(URL + event.target.id, headerFetch('DELETE'))
                 .then((res) => {
-                    if (res.ok) return res.json();
+                    if (res.ok) return res;
                     return Promise.reject(res);
                 }).then((response) => {
                     console.log(response);

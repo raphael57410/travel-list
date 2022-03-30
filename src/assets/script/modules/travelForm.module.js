@@ -10,8 +10,10 @@ export class TravelForm {
     _destinationInput = document.querySelector('.destinationInput');
     _imageInput = document.querySelector('.imageInput');
     _descriptionInput = document.querySelector('.descriptionInput');
+    _formButton = document.querySelector('.form_button');
 
     constructor() {
+        this._formButton.innerText = 'Ajouter le voyage';
 
         const itemParse = JSON.parse(localStorage.getItem('TRAVEL'));
         if (itemParse) {
@@ -19,6 +21,7 @@ export class TravelForm {
             this._destinationInput.value = itemParse.name;
             this._imageInput.value = itemParse.img;
             this._descriptionInput.value = itemParse.description;
+            this._formButton.innerText = 'éditer le voyage';
         }
 
         this._form.addEventListener('submit', (event) => {
@@ -76,8 +79,8 @@ export class TravelForm {
             return Promise.reject(res);
 
         }).then((response) => {
-            console.log(response);
             localStorage.removeItem('TRAVEL');
+            location.href = '/liste';
         }).catch((error) => {
             console.log('Error fetch update', error);
         });
