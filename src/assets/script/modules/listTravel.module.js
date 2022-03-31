@@ -1,5 +1,6 @@
 import { headerFetch } from "../../utils/headerFetch.js";
 import { Button } from "./button.module.js";
+import { Modal } from "./modal.module.js";
 
 const URL = '/listTravel/';
 const URLFORM = '/formulaire/';
@@ -47,7 +48,7 @@ export class ListTravel {
 
                     this.editTravel(editButtonElement.button);
 
-                    this.deletetravel(deleteButtonElement.button);
+                    this.deletetravel(deleteButtonElement.button, ulElement);
 
                     liElement.appendChild(imgElement);
                     liElement.appendChild(pElement);
@@ -84,18 +85,21 @@ export class ListTravel {
     }
 
     // Delete Travel
-    deletetravel(deleteButton) {
+    deletetravel(deleteButton, ulElement) {
         deleteButton.addEventListener('click', (event) => {
-            fetch(URL + event.target.id, headerFetch('DELETE'))
-                .then((res) => {
-                    if (res.ok) return res;
-                    return Promise.reject(res);
-                }).then((response) => {
-                    console.log(response);
-                    location.href = '/liste';
-                }).catch((error) => {
-                    console.log('Error fetch /delete', error);
-                })
+            const test = new Modal(ulElement);
+            console.log(test._modalContainer);
+            ulElement.appendChild(test._modalContainer);
+            // fetch(URL + event.target.id, headerFetch('DELETE'))
+            //     .then((res) => {
+            //         if (res.ok) return res;
+            //         return Promise.reject(res);
+            //     }).then((response) => {
+            //         console.log(response);
+            //         location.href = '/liste';
+            //     }).catch((error) => {
+            //         console.log('Error fetch /delete', error);
+            //     })
         });
     }
 }
