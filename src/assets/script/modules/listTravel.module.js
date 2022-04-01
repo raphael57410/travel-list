@@ -87,19 +87,22 @@ export class ListTravel {
     // Delete Travel
     deletetravel(deleteButton, ulElement) {
         deleteButton.addEventListener('click', (event) => {
-            const test = new Modal(ulElement);
-            console.log(test._modalContainer);
-            ulElement.appendChild(test._modalContainer);
-            // fetch(URL + event.target.id, headerFetch('DELETE'))
-            //     .then((res) => {
-            //         if (res.ok) return res;
-            //         return Promise.reject(res);
-            //     }).then((response) => {
-            //         console.log(response);
-            //         location.href = '/liste';
-            //     }).catch((error) => {
-            //         console.log('Error fetch /delete', error);
-            //     })
+
+
+            const test = () => fetch(URL + event.target.id, headerFetch('DELETE'))
+                .then((res) => {
+                    if (res.ok) return res;
+                    return Promise.reject(res);
+                }).then((response) => {
+                    console.log(response);
+                    location.href = '/liste';
+                }).catch((error) => {
+                    console.log('Error fetch /delete', error);
+                })
+            const modal = new Modal(ulElement, test);
+
+            ulElement.appendChild(modal._modalContainer);
+
         });
     }
 }

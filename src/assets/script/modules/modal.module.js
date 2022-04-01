@@ -3,14 +3,16 @@ import { Button } from "./button.module.js";
 export class Modal {
     _modalContainer;
 
-    constructor(ulElement) {
+    constructor(ulElement, deleteFunc) {
         this.ulElement = ulElement;
         this.modalContainer = document.createElement('div');
-        const deleteButton = new Button("Supprimer");
-        const closeButton = new Button("Retour");
+        const deleteButton = new Button("Supprimer", 'modal_deleteButton');
+        const closeButton = new Button("Retour", 'modal_closeButton');
         this.modalContainer.classList.add('modal_container');
 
         this.closeModal(closeButton._button, ulElement);
+        this.deleteTravel(deleteButton._button, deleteFunc);
+
 
         this.modalContainer.appendChild(deleteButton._button);
         this.modalContainer.appendChild(closeButton._button);
@@ -26,6 +28,12 @@ export class Modal {
     closeModal(closeButton, ulElement) {
         closeButton.addEventListener('click', () => {
             ulElement.removeChild(this.modalContainer);
+        })
+    }
+
+    deleteTravel(deleteButton, deleteFunc) {
+        deleteButton.addEventListener('click', () => {
+            deleteFunc();
         })
     }
 
