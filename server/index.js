@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 require('./db/db.js');
 const path = require('path');
-const PORT = 3000;
+const PORT = 3003;
 const app = express();
 const TravelModel = require('./models/travelModel');
 

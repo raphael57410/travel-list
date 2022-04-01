@@ -5,13 +5,11 @@ const urlLocation = window.location.pathname;
 
 if (urlLocation === '/liste') {
 
-    const listTravelInstance = new ListTravel();
-    listTravelInstance;
+    new ListTravel();
 }
 
 
 if (urlLocation === '/formulaire') {
 
-    const travelFormInstance = new TravelForm();
-    travelFormInstance;
+    new TravelForm();
 }

@@ -1,16 +1,17 @@
 import { Button } from "./button.module.js";
+import { PopModal } from "./popModal.js";
 
 export class Modal {
     _modalContainer;
 
-    constructor(ulElement, deleteFunc) {
+    constructor(ulElement, deleteFunc, rootContainer) {
         this.ulElement = ulElement;
         this.modalContainer = document.createElement('div');
         const deleteButton = new Button("Supprimer", 'modal_deleteButton');
         const closeButton = new Button("Retour", 'modal_closeButton');
         this.modalContainer.classList.add('modal_container');
 
-        this.closeModal(closeButton._button, ulElement);
+        this.closeModal(closeButton._button, ulElement, rootContainer);
         this.deleteTravel(deleteButton._button, deleteFunc);
 
 
@@ -25,8 +26,9 @@ export class Modal {
         this._modalContainer = value;
     }
 
-    closeModal(closeButton, ulElement) {
+    closeModal(closeButton, ulElement, rootContainer) {
         closeButton.addEventListener('click', () => {
+            new PopModal('Supréssion annulé !', rootContainer);
             ulElement.removeChild(this.modalContainer);
         })
     }

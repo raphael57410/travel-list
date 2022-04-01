@@ -1,6 +1,8 @@
 import { headerFetch } from "../../utils/headerFetch.js";
 import { Button } from "./button.module.js";
 import { Modal } from "./modal.module.js";
+import { PopModal } from "./popModal.js";
+
 
 const URL = '/listTravel/';
 const URLFORM = '/formulaire/';
@@ -43,6 +45,7 @@ export class ListTravel {
                     const deleteButtonElement = new Button("Supprimer", 'delete_button', element._id);
 
                     liElement.innerText = element.name;
+                    liElement.id = element._id;
                     imgElement.src = element.img;
                     pElement.innerText = element.description;
 
@@ -87,19 +90,24 @@ export class ListTravel {
     // Delete Travel
     deletetravel(deleteButton, ulElement) {
         deleteButton.addEventListener('click', (event) => {
-
-
-            const test = () => fetch(URL + event.target.id, headerFetch('DELETE'))
+            const liToRemove = document.getElementById(event.target.id);
+            // func for delete to give for the modal delete button
+            const deleteFuncButton = () => fetch(URL + event.target.id, headerFetch('DELETE'))
                 .then((res) => {
-                    if (res.ok) return res;
+                    if (res.ok) {
+                        ulElement.removeChild(modal._modalContainer);
+                        ulElement.removeChild(liToRemove);
+                        new PopModal('Message Supprimé !', this._container);
+                        return res
+                    };
                     return Promise.reject(res);
                 }).then((response) => {
                     console.log(response);
-                    location.href = '/liste';
                 }).catch((error) => {
                     console.log('Error fetch /delete', error);
-                })
-            const modal = new Modal(ulElement, test);
+                });
+
+            const modal = new Modal(ulElement, deleteFuncButton, this._container);
 
             ulElement.appendChild(modal._modalContainer);
 

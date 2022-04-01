@@ -9,7 +9,9 @@
 
 }
 
-#root{
+#root {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +20,7 @@
     min-height: 100vh;
 }
 
-a{
+a {
     text-decoration: none;
     padding: 5px;
     text-align: center;
@@ -26,14 +28,14 @@ a{
     border: solid 2px var(--primary-color);
 }
 
-a:hover{
+a:hover {
     transform: scale(1.1);
     color: white;
     border-radius: 5px 20px 5px;
     background: var(--primary-color);
 }
 
-.link_container{
+.link_container {
     display: flex;
     justify-content: space-between;
     margin: 10px;
@@ -87,7 +89,7 @@ footer {
     background-color: var(--primary-color);
 }
 
-.edit_button{
+.edit_button {
     margin: 5px;
     font-weight: bold;
     background: none;
@@ -96,21 +98,21 @@ footer {
     border-radius: 10px;
 }
 
-.edit_button:hover{
+.edit_button:hover {
     cursor: pointer;
     box-shadow: var(--box-shadow);
 }
 
-.delete_button{
+.delete_button {
     margin: 5px;
     background: none;
     font-weight: bold;
     color: red;
     border-radius: 10px;
-    border: 1px solid red;  
+    border: 1px solid red;
 }
 
-.delete_button:hover{
+.delete_button:hover {
     cursor: pointer;
     box-shadow: var(--box-shadow);
 }
@@ -123,43 +125,94 @@ footer {
     color: white;
 }
 
-.modal_container{
+.modal_container {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
     text-align: center;
+    background: none;
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.8);
 }
 
-.modal_deleteButton{
+.modal_deleteButton {
     margin: 5px;
+    padding: 5px;
+    font-size: 2em;
     cursor: pointer;
     text-decoration: none;
-    padding: 5px;
+    background: none;
     text-align: center;
     border-radius: 10px;
     border: solid 2px var(--primary-color);
 }
 
-.modal_closeButton{
+.modal_closeButton {
     margin: 5px;
-    cursor: pointer;
-    text-decoration: none;
     padding: 5px;
+    font-size: 2em;
+    cursor: pointer;
+    background: none;
+    text-decoration: none;
     text-align: center;
     border-radius: 10px;
     border: solid 2px var(--primary-color);
+}
+
+.modal_deleteButton:hover {
+    transform: scale(1.1);
+    color: white;
+    border-radius: 5px 20px 5px;
+    background: var(--primary-color);
+}
+
+.modal_closeButton:hover {
+    transform: scale(1.1);
+    color: white;
+    border-radius: 5px 20px 5px;
+    background: var(--primary-color);
+}
+
+.popModal_container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100px;
+    right: 100px;
+    width: 200px;
+    height: 100px;
+    animation: popModal 1s;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    background: var(--primary-color);
+    box-shadow: var(--box-shadow);
+}
+
+@keyframes popModal {
+    0% {
+        right: -100px;
+    }
+
+    100% {
+        right: 100px;
+    }
 }
 
 @keyframes cardPop {
-    0%   {transform: scale(0);}
-    100% {transform: scale(1);}
-  }
+    0% {
+        transform: scale(0);
+    }
 
-  @media screen and (max-width: 800px) {
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 800px) {
     a {
         background: red;
         font-size: 10px;
@@ -179,4 +232,4 @@ footer {
     ul {
         grid-template-columns: 1fr;
     }
-  }
+}
