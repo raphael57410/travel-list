@@ -38,11 +38,11 @@ input {
     border-radius: 5px;
 }
 
-label{
+label {
     font-size: 0.5em;
 }
 
-input:focus{
+input:focus {
     outline-color: var(--primary-color);
 }
 
@@ -66,17 +66,47 @@ button {
     background-color: var(--secondary-color);
 }
 
-button:hover{
-   cursor: pointer;
-   box-shadow: var(--box-shadow);
+button:hover {
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
 }
 
-a{
+a {
     width: 100%;
     text-align: center;
     margin: 10px;
     text-decoration: none;
 
+}
+
+.popModal_container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 100px;
+    right: 100px;
+    width: 200px;
+    height: 100px;
+    animation: popModal 1s;
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 10px;
+    background: url('../images/check.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: var(--box-shadow);
+}
+
+@keyframes popModal {
+    0% {
+        right: -100px;
+    }
+
+    100% {
+        right: 100px;
+    }
 }
 
 footer {

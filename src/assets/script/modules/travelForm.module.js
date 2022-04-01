@@ -1,4 +1,6 @@
 import { headerFetch } from "../../utils/headerFetch.js";
+import { PopModal } from "./popModal.js";
+
 
 
 const ADD_URL = '/addTravel';
@@ -38,6 +40,7 @@ export class TravelForm {
     }
 
     sendNewTravel(destination, image, description) {
+        const rootContainer = document.querySelector('#root');
         const body = {
             destination,
             image,
@@ -49,13 +52,18 @@ export class TravelForm {
         fetch(ADD_URL, options)
             .then((res) => {
 
-                if (res.ok) return res;
+                if (res.ok) {
+                    new PopModal('Message Ajouté !', rootContainer);
+                    return res
+                };
 
                 return Promise.reject(res);
             })
             .then((response) => {
                 console.log(response);
-                location.href = '/liste';
+                this._destinationInput.value = "";
+                this._imageInput.value = "";
+                this._descriptionInput.value = "";
             })
             .catch((error) => {
                 console.log('Error fetch /addTravel', error);
