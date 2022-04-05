@@ -2,11 +2,15 @@ import { headerFetch } from "../../utils/headerFetch.js";
 
 export class Home {
     _rootElement = document.querySelector('#root');
+    _inputElement = document.createElement('input');
     _cityName = 'paris';
 
-    constructor() {
-        this.fetchWeather(this.cityName)
 
+    constructor() {
+        this._inputElement.value = 'Paris';
+        this._rootElement.appendChild(this._inputElement);
+        this.fetchWeather(this.cityName);
+        this.cityChange();
     }
 
     get cityName() {
@@ -14,6 +18,13 @@ export class Home {
     }
     set cityName(value) {
         this._cityName = value;
+    }
+
+    get citychange() {
+        return this._citychange;
+    }
+    set citychange(value) {
+        this._citychange = value;
     }
 
     fetchWeather(cityName) {
@@ -39,9 +50,20 @@ export class Home {
             })
             .then(response => {
                 const divElement = document.createElement('div');
-                divElement.innerText = 'Temperature de Paris: ' + response.main.temp + ' °C';
+
+                divElement.classList.add('temp_container');
+                divElement.innerText = `Temperature de ${this._cityName}: ${response.main.temp} °C`;
 
                 this._rootElement.appendChild(divElement);
             })
+    }
+
+    cityChange() {
+        this._inputElement.addEventListener('change', (event) => {
+            this._cityName = event.target.value;
+            const divElement = document.querySelector('.temp_container');
+            this._rootElement.removeChild(divElement)
+            this.fetchWeather(event.target.value);
+        })
     }
 }
