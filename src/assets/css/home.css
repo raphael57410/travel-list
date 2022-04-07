@@ -6,6 +6,10 @@
     font-family: 'DM Sans Courier New', Courier, monospace;
 }
 
+/* input {
+    all: unset;
+} */
+
 main {
     display: flex;
     flex-direction: column;
@@ -32,5 +36,11 @@ a {
     background: white;
     padding: 5px;
     margin: 5px;
+    border-radius: 10px;
+}
+
+input {
+    margin: 10px;
+    outline: none;
     border-radius: 10px;
 }
